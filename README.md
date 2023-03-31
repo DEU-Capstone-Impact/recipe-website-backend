@@ -4,7 +4,7 @@
 본 레포지토리는 백엔드 개발을 담당하는 레포지토리입니다.
 
 ## 개발 환경
-IntelliJ IDEA
-oracle JDK 11
-Sprnig boot 3.0.1
-Maria DB
+- IntelliJ IDEA
+- oracle JDK 11
+- Sprnig boot 3.0.1
+- Maria DB
