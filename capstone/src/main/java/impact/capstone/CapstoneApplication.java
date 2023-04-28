@@ -1,4 +1,4 @@
-package impact.capstone;
+package main.java.impact.capstone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
