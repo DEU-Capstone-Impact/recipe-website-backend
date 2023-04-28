@@ -6,5 +6,5 @@
 ## 개발 환경
 - IntelliJ IDEA
 - oracle JDK 11
-- Sprnig boot 3.0.1
+- Sprnig boot 2.7.10
 - Maria DB
