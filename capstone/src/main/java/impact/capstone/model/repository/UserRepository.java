@@ -1,4 +1,4 @@
-package impact.capstone.repository;
+package impact.capstone.model.repository;
 
 import impact.capstone.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
