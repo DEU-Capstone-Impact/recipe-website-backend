@@ -31,4 +31,14 @@ public class UserController {
     public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO){
         return userService.signUp(userDTO);
     }
+
+    @PostMapping("/login")
+    @Operation(summary = "로그인", description = "유저 정보를 입력받아 로그인하는 기능")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "로그인 성공"),
+            @ApiResponse(responseCode = "400", description = "존재하지 않는 회원 정보입니다.")
+    })
+    public ResponseEntity<String> signIn(@RequestBody UserDTO userDTO) {
+        return userService.signIn(userDTO.getId(), userDTO.getPassword());
+    }
 }

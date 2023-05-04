@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("select (count(u) > 0) from UserEntity u where u.id = ?1")
-    boolean existsByUserId(String userId);
+    boolean existsByUserId(Long userId);
 }
