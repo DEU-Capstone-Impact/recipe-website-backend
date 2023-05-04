@@ -1,7 +1,7 @@
-package impact.capstone.controller;
+package impact.capstone.user.controller;
 
 import impact.capstone.model.dto.UserDTO;
-import impact.capstone.service.UserService;
+import impact.capstone.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

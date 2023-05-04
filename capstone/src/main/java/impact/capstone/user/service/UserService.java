@@ -1,8 +1,8 @@
-package impact.capstone.service;
+package impact.capstone.user.service;
 
 import impact.capstone.model.dto.UserDTO;
 import impact.capstone.model.entity.UserEntity;
-import impact.capstone.model.repository.UserRepository;
+import impact.capstone.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
