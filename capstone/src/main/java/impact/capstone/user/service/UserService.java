@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     @Autowired
@@ -37,5 +39,19 @@ public class UserService {
         userRepository.save(user);
 
         return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));
+    }
+
+    public ResponseEntity<String> signIn(Long userId, String userPassword){
+        // 1. 아이디 존재  여부 확인
+        Optional<UserEntity> user = userRepository.findById(userId);
+        if (!user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 2. 로그인
+        if (passwordEncoder.matches(userPassword, user.get().getPassword())){
+            return ResponseEntity.ok(jwtConfig.createToken(user.get()));
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
