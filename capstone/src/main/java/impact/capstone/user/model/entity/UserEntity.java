@@ -1,4 +1,4 @@
-package impact.capstone.model.entity;
+package impact.capstone.user.model.entity;
 
 import lombok.*;
 
@@ -13,12 +13,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "user")
 public class UserEntity {
-
     @Id
     private Long id;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String username;
     private String password;
     private Long point;
-
 }
