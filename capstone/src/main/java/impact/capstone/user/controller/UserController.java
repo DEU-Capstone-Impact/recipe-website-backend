@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -34,10 +31,7 @@ public class UserController {
 
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "유저 정보를 입력받아 로그인하는 기능")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "로그인 성공"),
-            @ApiResponse(responseCode = "400", description = "존재하지 않는 회원 정보입니다.")
-    })
+    @ResponseBody
     public ResponseEntity<String> signIn(@RequestBody UserDTO userDTO) {
         return userService.signIn(userDTO.getId(), userDTO.getPassword());
     }
