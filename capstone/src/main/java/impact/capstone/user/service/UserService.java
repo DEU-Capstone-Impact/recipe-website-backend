@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -41,7 +42,7 @@ public class UserService {
         return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));
     }
 
-    public ResponseEntity<String> signIn(Long userId, String userPassword){
+    public ResponseEntity<String> signIn(Long userId, String userPassword) {
         // 1. 아이디 존재  여부 확인
         Optional<UserEntity> user = userRepository.findById(userId);
         if (!user.isEmpty()) {
@@ -49,9 +50,24 @@ public class UserService {
         }
 
         // 2. 로그인
-        if (passwordEncoder.matches(userPassword, user.get().getPassword())){
+        if (passwordEncoder.matches(userPassword, user.get().getPassword())) {
             return ResponseEntity.ok(jwtConfig.createToken(user.get()));
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    public ResponseEntity<UserDTO> updateAccount(UserDTO userDTO, String token) {
+        Map<String, Object> user = jwtConfig.verifyJWT(token);
+        Long tmp = Long.parseLong(String.valueOf(user.get("userId")));
+        UserEntity originUser = userRepository.findById(tmp).get();
+        UserEntity modifiedUser = modelMapper.map(userDTO, UserEntity.class);
+
+        //userName 입력, 이전과 다르면 갱신
+        if (modifiedUser.getUsername() != null && modifiedUser.getUsername() != originUser.getUsername()) {
+            originUser.setUsername(modifiedUser.getUsername());
+        }
+
+        originUser = userRepository.save(originUser);
+        return ResponseEntity.ok(modelMapper.map(modifiedUser, UserDTO.class));
     }
 }
