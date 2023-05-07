@@ -70,4 +70,11 @@ public class UserService {
         originUser = userRepository.save(originUser);
         return ResponseEntity.ok(modelMapper.map(modifiedUser, UserDTO.class));
     }
+
+    public ResponseEntity<String> deleteAccount(String token) {
+        Map<String, Object> user = jwtConfig.verifyJWT(token);
+        Long tmp = Long.parseLong(String.valueOf(user.get("userId")));
+        userRepository.deleteById(tmp);
+        return ResponseEntity.ok("회원 탈퇴 완료");
+    }
 }

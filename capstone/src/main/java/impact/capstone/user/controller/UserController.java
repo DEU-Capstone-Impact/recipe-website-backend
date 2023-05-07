@@ -45,4 +45,12 @@ public class UserController {
             @RequestBody UserDTO userDTO) {
         return userService.updateAccount(userDTO, token);
     }
+
+    @PostMapping("/deleteuser")
+    @Operation(summary = "회원 탈퇴", description = "회원 정보를 삭제한다")
+    public ResponseEntity<String> deleteAccount(
+            @Parameter(name = "JWT", description = "유저 토큰")
+            @RequestHeader(value = "jwt") String token) {
+        return userService.deleteAccount(token);
+    }
 }
