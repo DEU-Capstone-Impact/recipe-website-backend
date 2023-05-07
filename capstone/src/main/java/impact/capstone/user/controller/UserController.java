@@ -3,6 +3,7 @@ package impact.capstone.user.controller;
 import impact.capstone.user.model.dto.UserDTO;
 import impact.capstone.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "회원가입 성공"),
             @ApiResponse(responseCode = "400", description = "ID가 중복입니다.")
     })
-    public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO) {
         return userService.signUp(userDTO);
     }
 
@@ -34,5 +35,14 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<String> signIn(@RequestBody UserDTO userDTO) {
         return userService.signIn(userDTO.getId(), userDTO.getPassword());
+    }
+
+    @PostMapping("/updateuserinfo")
+    @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정한다")
+    public ResponseEntity<UserDTO> updateAccount(
+            @Parameter(name = "JWT", description = "jwt")
+            @RequestHeader(value = "jwt") String token,
+            @RequestBody UserDTO userDTO) {
+        return userService.updateAccount(userDTO, token);
     }
 }
