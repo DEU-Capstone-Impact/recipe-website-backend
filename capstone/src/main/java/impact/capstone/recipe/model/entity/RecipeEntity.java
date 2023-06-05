@@ -1,5 +1,7 @@
 package impact.capstone.recipe.model.entity;
 
+import impact.capstone.recipe.Enum.CategoryEnum;
+import impact.capstone.recipe.Enum.WeatherEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,8 +10,6 @@ import javax.persistence.*;
 @Data
 @Builder
 @NoArgsConstructor
-@Getter
-@Setter
 @AllArgsConstructor
 @Table(name = "recipe")
 public class RecipeEntity {
@@ -20,7 +20,7 @@ public class RecipeEntity {
     private String recipeContent;
     private String ingredient;
     @Enumerated(EnumType.STRING)
-    private Long weather;
+    private WeatherEnum weather;
     @Enumerated(EnumType.STRING)
-    private Long category;
+    private CategoryEnum category;
 }

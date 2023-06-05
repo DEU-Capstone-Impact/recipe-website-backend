@@ -1,5 +1,7 @@
 package impact.capstone.recipe.model.dto;
 
+import impact.capstone.recipe.Enum.CategoryEnum;
+import impact.capstone.recipe.Enum.WeatherEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,6 @@ public class RecipeDTO {
     private Long view;
     private String recipeContent;
     private String ingredient;
-    private Long weather;
-    private Long category;
+    private WeatherEnum weather;
+    private CategoryEnum category;
 }
