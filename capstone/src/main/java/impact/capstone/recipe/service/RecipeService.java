@@ -33,7 +33,7 @@ public class RecipeService {
     }
 
     public List<RecipeDTO> searchRecipe(String keyword) {
-        List<RecipeDTO> recipeDTOList = recipeSearchRepository.findByTitleContaining(keyword);
+        List<RecipeDTO> recipeDTOList = recipeSearchRepository.findByCategoryContaining(keyword);
         return recipeDTOList;
     }
 }
