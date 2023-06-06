@@ -5,10 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.service.RecipeService;
+
+import java.util.List;
 
 @Controller
 public class RecipeController {
@@ -20,16 +23,25 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/recipes/new")
-    public ModelAndView showRecipeForm() {
-        ModelAndView modelAndView = new ModelAndView("recipe-form");
+    @GetMapping("/recipe/upload")
+    public ModelAndView showRecipeCreateForm() {
+        ModelAndView modelAndView = new ModelAndView("recipe-create-form");
         modelAndView.addObject("recipe", new RecipeDTO());
         return modelAndView;
     }
 
-    @PostMapping("/recipes")
+    @PostMapping("/recipe")
     public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe) {
         recipeService.createRecipe(recipe);
-        return "redirect:/recipes";
+        return "redirect:/recipe";
     }
+
+    @PostMapping("/recipe/search")
+    public ModelAndView showRecipeSearchForm(@RequestParam String keyword) {
+        List<RecipeDTO> recipeDTOList = recipeService.searchRecipe(keyword);
+        ModelAndView modelAndView = new ModelAndView("recipe-category-search-result");
+        modelAndView.addObject("searchedRecipes", recipeDTOList);
+        return modelAndView;
+    }
+
 }
