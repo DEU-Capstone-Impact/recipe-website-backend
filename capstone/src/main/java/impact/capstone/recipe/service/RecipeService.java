@@ -1,5 +1,6 @@
 package impact.capstone.recipe.service;
 
+import impact.capstone.recipe.Enum.CategoryEnum;
 import impact.capstone.recipe.Enum.WeatherEnum;
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.model.entity.RecipeEntity;
@@ -40,7 +41,7 @@ public class RecipeService {
         return recipeSortByViewRepository.save(recipe);
     }
 
-    public List<RecipeDTO> categoryRecipe(String category) {
+    public List<RecipeDTO> categoryRecipe(CategoryEnum category) {
         List<RecipeDTO> recipeDTOList = recipeSearchRepository.findByCategoryContaining(category);
         return recipeDTOList;
     }
