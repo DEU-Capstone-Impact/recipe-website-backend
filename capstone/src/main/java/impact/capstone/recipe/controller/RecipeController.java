@@ -2,6 +2,7 @@ package impact.capstone.recipe.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,13 @@ public class RecipeController {
         ModelAndView modelAndView = new ModelAndView("recipe-category-search-result");
         modelAndView.addObject("searchedRecipes", recipeDTOList);
         return modelAndView;
+    }
+
+    @GetMapping("/recipe/boards")
+    public String getRecipeBoardsByViewCount(Model model) {
+        List<RecipeDTO> recipeDTOList = recipeService.sortByViewRecipe();
+        model.addAttribute("recipeBoards", recipeDTOList);
+        return "recipe-boards";
     }
 
 }

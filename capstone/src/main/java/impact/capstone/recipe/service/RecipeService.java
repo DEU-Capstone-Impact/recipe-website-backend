@@ -2,7 +2,7 @@ package impact.capstone.recipe.service;
 
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.model.entity.RecipeEntity;
-import impact.capstone.recipe.repository.RecipeRepository;
+import impact.capstone.recipe.repository.RecipeSortByViewRepository;
 import impact.capstone.recipe.repository.RecipeCategorySearchRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +10,11 @@ import java.util.List;
 
 @Service
 public class RecipeService {
-    private final RecipeRepository recipeRepository;
+    private final RecipeSortByViewRepository recipeSortByViewRepository;
     private final RecipeCategorySearchRepository recipeSearchRepository;
 
-    public RecipeService(RecipeRepository recipeRepository, RecipeCategorySearchRepository recipeSearchRepository) {
-        this.recipeRepository = recipeRepository;
+    public RecipeService(RecipeSortByViewRepository recipeRepository, RecipeCategorySearchRepository recipeSearchRepository) {
+        this.recipeSortByViewRepository = recipeRepository;
         this.recipeSearchRepository = recipeSearchRepository;
     }
 
@@ -29,11 +29,16 @@ public class RecipeService {
                 .category(recipeDTO.getCategory())
                 .build();
 
-        return recipeRepository.save(recipe);
+        return recipeSortByViewRepository.save(recipe);
     }
 
     public List<RecipeDTO> searchRecipe(String keyword) {
         List<RecipeDTO> recipeDTOList = recipeSearchRepository.findByCategoryContaining(keyword);
+        return recipeDTOList;
+    }
+
+    public List<RecipeDTO> sortByViewRecipe() {
+        List<RecipeDTO> recipeDTOList = recipeSortByViewRepository.findByViewDesc();
         return recipeDTOList;
     }
 }
