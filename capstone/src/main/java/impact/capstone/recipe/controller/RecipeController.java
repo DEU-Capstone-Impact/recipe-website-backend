@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import impact.capstone.recipe.model.dto.RecipeDTO;
@@ -33,9 +34,9 @@ public class RecipeController {
         return modelAndView;
     }
 
-    @PostMapping("/recipe")
-    public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe) {
-        recipeService.createRecipe(recipe);
+    @PostMapping("/recipe") // 레시피 업로드 (2023. 06. 07 수정)
+    public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe, @RequestParam("photoFile") MultipartFile photoFile) {
+        recipeService.createRecipe(recipe, photoFile);
         return "redirect:/recipe";
     }
 

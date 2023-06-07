@@ -14,13 +14,17 @@ import javax.persistence.*;
 @Table(name = "recipe")
 public class RecipeEntity {
     @Id
+    @Column(name="number")
     private Long recipeNum;
     private String title;
     private Long view;
+    @Column(name="recipe")
     private String recipeContent;
     private String ingredient;
     @Enumerated(EnumType.STRING)
     private WeatherEnum weather;
     @Enumerated(EnumType.STRING)
+    @Column(name="cate")
     private CategoryEnum category;
+    private String recipe_photo;
 }
