@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.service.RecipeService;
-
 import java.util.List;
 
 @Controller
