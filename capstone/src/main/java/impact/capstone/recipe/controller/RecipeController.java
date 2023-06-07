@@ -1,10 +1,12 @@
 package impact.capstone.recipe.controller;
 
+import impact.capstone.recipe.Enum.CategoryEnum;
 import impact.capstone.recipe.Enum.WeatherEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import impact.capstone.recipe.model.dto.RecipeDTO;
@@ -29,9 +31,9 @@ public class RecipeController {
         return modelAndView;
     }
 
-    @PostMapping("/recipe")
-    public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe) {
-        recipeService.createRecipe(recipe);
+    @PostMapping("/recipe") // 레시피 업로드 (2023. 06. 07 수정)
+    public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe, @RequestParam("photoFile") MultipartFile photoFile) {
+        recipeService.createRecipe(recipe, photoFile);
         return "redirect:/recipe";
     }
 
@@ -44,7 +46,7 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/category")
-    public ModelAndView showRecipeCategoryForm(@RequestParam String category) {
+    public ModelAndView showRecipeCategoryForm(@RequestParam CategoryEnum category) {
         List<RecipeDTO> recipeDTOList = recipeService.categoryRecipe(category);
         ModelAndView modelAndView = new ModelAndView("recipe-category-result");
         modelAndView.addObject("searchedCategoryRecipes", recipeDTOList);

@@ -19,4 +19,6 @@ public class RecipeDTO {
     private String ingredient;
     private WeatherEnum weather;
     private CategoryEnum category;
+
+    private String recipe_photo;
 }
