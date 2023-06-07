@@ -13,12 +13,12 @@ import java.util.List;
 public class RecipeService {
     private final RecipeSortByViewRepository recipeSortByViewRepository;
     private final RecipeCategoryRepository recipeSearchRepository;
-    private final RecipeIngredientsRepository recipeingredientsRepository;
+    private final RecipeIngredientsRepository recipeIngredientsRepository;
 
     public RecipeService(RecipeSortByViewRepository recipeRepository, RecipeCategoryRepository recipeSearchRepository, RecipeIngredientsRepository recipeKeywordRepository) {
         this.recipeSortByViewRepository = recipeRepository;
         this.recipeSearchRepository = recipeSearchRepository;
-        this.recipeingredientsRepository = recipeKeywordRepository;
+        this.recipeIngredientsRepository = recipeKeywordRepository;
     }
 
     public RecipeEntity createRecipe(RecipeDTO recipeDTO) {
@@ -40,8 +40,8 @@ public class RecipeService {
         return recipeDTOList;
     }
 
-    public List<RecipeDTO> IngredientsRecipe(String ingredients) {
-        List<RecipeDTO> recipeDTOList = recipeingredientsRepository.findByIngredientsContaining(ingredients);
+    public List<RecipeDTO> ingredientsRecipe(String ingredients) {
+        List<RecipeDTO> recipeDTOList = recipeIngredientsRepository.findByIngredientContaining(ingredients);
         return recipeDTOList;
     }
 

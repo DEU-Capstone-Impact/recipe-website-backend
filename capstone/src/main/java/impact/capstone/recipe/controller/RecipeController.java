@@ -37,19 +37,19 @@ public class RecipeController {
         return "redirect:/recipe";
     }
 
-    @PostMapping("/recipe/search")
-    public ModelAndView showRecipeSearchForm(@RequestParam String ingredients) {
-        List<RecipeDTO> recipeDTOList = recipeService.IngredientsRecipe(ingredients);
-        ModelAndView modelAndView = new ModelAndView("recipe-category-search-result");
-        modelAndView.addObject("searchedRecipes", recipeDTOList);
+    @PostMapping("/recipe/keyword")
+    public ModelAndView showRecipeKeywordForm(@RequestParam String ingredients) {
+        List<RecipeDTO> recipeDTOList = recipeService.ingredientsRecipe(ingredients);
+        ModelAndView modelAndView = new ModelAndView("recipe-keyword-result");
+        modelAndView.addObject("searchedKeywordRecipes", recipeDTOList);
         return modelAndView;
     }
 
     @PostMapping("/recipe/category")
     public ModelAndView showRecipeCategoryForm(@RequestParam String category) {
         List<RecipeDTO> recipeDTOList = recipeService.categoryRecipe(category);
-        ModelAndView modelAndView = new ModelAndView("recipe-category-search-result");
-        modelAndView.addObject("searchedRecipes", recipeDTOList);
+        ModelAndView modelAndView = new ModelAndView("recipe-category-result");
+        modelAndView.addObject("searchedCategoryRecipes", recipeDTOList);
         return modelAndView;
     }
 
