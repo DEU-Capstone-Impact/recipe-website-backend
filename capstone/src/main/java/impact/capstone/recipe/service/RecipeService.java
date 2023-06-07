@@ -2,8 +2,9 @@ package impact.capstone.recipe.service;
 
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.model.entity.RecipeEntity;
+import impact.capstone.recipe.repository.RecipeIngredientsRepository;
 import impact.capstone.recipe.repository.RecipeSortByViewRepository;
-import impact.capstone.recipe.repository.RecipeCategorySearchRepository;
+import impact.capstone.recipe.repository.RecipeCategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +12,13 @@ import java.util.List;
 @Service
 public class RecipeService {
     private final RecipeSortByViewRepository recipeSortByViewRepository;
-    private final RecipeCategorySearchRepository recipeSearchRepository;
+    private final RecipeCategoryRepository recipeSearchRepository;
+    private final RecipeIngredientsRepository recipeingredientsRepository;
 
-    public RecipeService(RecipeSortByViewRepository recipeRepository, RecipeCategorySearchRepository recipeSearchRepository) {
+    public RecipeService(RecipeSortByViewRepository recipeRepository, RecipeCategoryRepository recipeSearchRepository, RecipeIngredientsRepository recipeKeywordRepository) {
         this.recipeSortByViewRepository = recipeRepository;
         this.recipeSearchRepository = recipeSearchRepository;
+        this.recipeingredientsRepository = recipeKeywordRepository;
     }
 
     public RecipeEntity createRecipe(RecipeDTO recipeDTO) {
@@ -32,8 +35,13 @@ public class RecipeService {
         return recipeSortByViewRepository.save(recipe);
     }
 
-    public List<RecipeDTO> searchRecipe(String keyword) {
-        List<RecipeDTO> recipeDTOList = recipeSearchRepository.findByCategoryContaining(keyword);
+    public List<RecipeDTO> categoryRecipe(String category) {
+        List<RecipeDTO> recipeDTOList = recipeSearchRepository.findByCategoryContaining(category);
+        return recipeDTOList;
+    }
+
+    public List<RecipeDTO> IngredientsRecipe(String ingredients) {
+        List<RecipeDTO> recipeDTOList = recipeingredientsRepository.findByIngredientsContaining(ingredients);
         return recipeDTOList;
     }
 

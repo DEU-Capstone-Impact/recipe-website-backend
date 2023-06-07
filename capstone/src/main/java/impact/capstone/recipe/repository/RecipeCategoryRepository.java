@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RecipeCategorySearchRepository extends JpaRepository<RecipeEntity, String> {
-    List<RecipeDTO> findByCategoryContaining(String keyword);
+public interface RecipeCategoryRepository extends JpaRepository<RecipeEntity, String> {
+    List<RecipeDTO> findByCategoryContaining(String category);
 
 }
