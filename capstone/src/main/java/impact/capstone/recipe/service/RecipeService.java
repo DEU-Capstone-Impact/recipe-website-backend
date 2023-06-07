@@ -9,6 +9,7 @@ import impact.capstone.recipe.repository.RecipeSortByViewRepository;
 import impact.capstone.recipe.repository.RecipeCategoryRepository;
 import impact.capstone.recipe.repository.RecipeWeatherRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class RecipeService {
         this.recipeWeatherRepository = recipeWeatherRepository;
     }
 
-    public RecipeEntity createRecipe(RecipeDTO recipeDTO) {
+    public RecipeEntity createRecipe(RecipeDTO recipeDTO, MultipartFile photoFile) {
+        String filePath = extractFilePath(photoFile);
+
         // RecipeDTO를 Recipe 엔티티로 변환하여 저장
         RecipeEntity recipe = RecipeEntity.builder()
                 .title(recipeDTO.getTitle())
@@ -36,6 +39,7 @@ public class RecipeService {
                 .ingredient(recipeDTO.getIngredient())
                 .weather(recipeDTO.getWeather())
                 .category(recipeDTO.getCategory())
+                .recipe_photo(filePath)
                 .build();
 
         return recipeSortByViewRepository.save(recipe);
@@ -59,5 +63,14 @@ public class RecipeService {
     public List<RecipeDTO> sortByViewRecipe() {
         List<RecipeDTO> recipeDTOList = recipeSortByViewRepository.findAllByOrderByViewDesc();
         return recipeDTOList;
+    }
+
+    public String extractFilePath(MultipartFile file) { // 사진 업로드를 위한 URL
+        String originalFilename = file.getOriginalFilename();
+        String fileName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
+        String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+        String directoryPath = "C:/recipe_photo/";  // 파일 경로 공통되게 지정
+        String filePath = directoryPath + fileName + extension;
+        return filePath;
     }
 }
