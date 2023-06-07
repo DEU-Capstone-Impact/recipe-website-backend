@@ -1,12 +1,15 @@
 package impact.capstone.recipe.controller;
 
+import impact.capstone.recipe.Enum.CategoryEnum;
+import impact.capstone.recipe.Enum.WeatherEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.service.RecipeService;
 import java.util.List;
@@ -27,9 +30,9 @@ public class RecipeController {
         return "recipe-create-form";
     }
 
-    @PostMapping("/recipe")
-    public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe) {
-        recipeService.createRecipe(recipe);
+    @PostMapping("/recipe") // 레시피 업로드 (2023. 06. 07 수정)
+    public String createRecipe(@ModelAttribute("recipe") RecipeDTO recipe, @RequestParam("photoFile") MultipartFile photoFile) {
+        recipeService.createRecipe(recipe, photoFile);
         return "redirect:/recipe";
     }
 
@@ -47,11 +50,28 @@ public class RecipeController {
         return "recipe-category-result";
     }
 
+    @PostMapping("/recipe/weather")
+    public ModelAndView showRecipeWeatherForm(@RequestParam WeatherEnum weather) {
+        List<RecipeDTO> recipeDTOList = recipeService.weatherRecipe(weather);
+        ModelAndView modelAndView = new ModelAndView("recipe-weather-result");
+        modelAndView.addObject("searchedWeatherRecipes", recipeDTOList);
+        return modelAndView;
+    }
+
     @GetMapping("/recipe/boards")
     public String getRecipeBoardsByViewCount(Model model) {
         List<RecipeDTO> recipeDTOList = recipeService.sortByViewRecipe();
         model.addAttribute("recipeBoards", recipeDTOList);
         return "recipe-boards";
     }
+
+    @GetMapping("/recipes/{recipeNum}")
+    public ModelAndView showRecipeDetails(@PathVariable Long recipeNum) {
+        RecipeDTO recipeDTO = recipeService.getRecipeDetails(recipeNum);
+        ModelAndView modelAndView = new ModelAndView("recipe-details");
+        modelAndView.addObject("recipe", recipeDTO);
+        return modelAndView;
+    }
+
 
 }
