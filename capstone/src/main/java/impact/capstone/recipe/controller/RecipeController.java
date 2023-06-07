@@ -1,5 +1,6 @@
 package impact.capstone.recipe.controller;
 
+import impact.capstone.recipe.Enum.WeatherEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +51,14 @@ public class RecipeController {
         List<RecipeDTO> recipeDTOList = recipeService.categoryRecipe(category);
         ModelAndView modelAndView = new ModelAndView("recipe-category-result");
         modelAndView.addObject("searchedCategoryRecipes", recipeDTOList);
+        return modelAndView;
+    }
+
+    @PostMapping("/recipe/weather")
+    public ModelAndView showRecipeWeatherForm(@RequestParam WeatherEnum weather) {
+        List<RecipeDTO> recipeDTOList = recipeService.weatherRecipe(weather);
+        ModelAndView modelAndView = new ModelAndView("recipe-weather-result");
+        modelAndView.addObject("searchedWeatherRecipes", recipeDTOList);
         return modelAndView;
     }
 

@@ -1,10 +1,12 @@
 package impact.capstone.recipe.service;
 
+import impact.capstone.recipe.Enum.WeatherEnum;
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.model.entity.RecipeEntity;
 import impact.capstone.recipe.repository.RecipeIngredientsRepository;
 import impact.capstone.recipe.repository.RecipeSortByViewRepository;
 import impact.capstone.recipe.repository.RecipeCategoryRepository;
+import impact.capstone.recipe.repository.RecipeWeatherRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,13 @@ public class RecipeService {
     private final RecipeCategoryRepository recipeSearchRepository;
     private final RecipeIngredientsRepository recipeIngredientsRepository;
 
-    public RecipeService(RecipeSortByViewRepository recipeRepository, RecipeCategoryRepository recipeSearchRepository, RecipeIngredientsRepository recipeKeywordRepository) {
+    private final RecipeWeatherRepository recipeWeatherRepository;
+
+    public RecipeService(RecipeSortByViewRepository recipeRepository, RecipeCategoryRepository recipeSearchRepository, RecipeIngredientsRepository recipeKeywordRepository, RecipeWeatherRepository recipeWeatherRepository) {
         this.recipeSortByViewRepository = recipeRepository;
         this.recipeSearchRepository = recipeSearchRepository;
         this.recipeIngredientsRepository = recipeKeywordRepository;
+        this.recipeWeatherRepository = recipeWeatherRepository;
     }
 
     public RecipeEntity createRecipe(RecipeDTO recipeDTO) {
@@ -42,6 +47,11 @@ public class RecipeService {
 
     public List<RecipeDTO> ingredientsRecipe(String ingredients) {
         List<RecipeDTO> recipeDTOList = recipeIngredientsRepository.findByIngredientContaining(ingredients);
+        return recipeDTOList;
+    }
+
+    public List<RecipeDTO> weatherRecipe(WeatherEnum weather) {
+        List<RecipeDTO> recipeDTOList = recipeWeatherRepository.findAllByWeather(weather);
         return recipeDTOList;
     }
 
