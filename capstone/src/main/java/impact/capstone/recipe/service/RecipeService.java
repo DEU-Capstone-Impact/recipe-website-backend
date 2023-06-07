@@ -46,7 +46,7 @@ public class RecipeService {
     }
 
     public List<RecipeDTO> sortByViewRecipe() {
-        List<RecipeDTO> recipeDTOList = recipeSortByViewRepository.findByViewDesc();
+        List<RecipeDTO> recipeDTOList = recipeSortByViewRepository.findAllByOrderByViewDesc();
         return recipeDTOList;
     }
 }

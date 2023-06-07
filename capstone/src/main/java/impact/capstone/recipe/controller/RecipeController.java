@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import impact.capstone.recipe.model.dto.RecipeDTO;
 import impact.capstone.recipe.service.RecipeService;
@@ -25,10 +24,9 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/upload")
-    public ModelAndView showRecipeCreateForm() {
-        ModelAndView modelAndView = new ModelAndView("recipe-create-form");
-        modelAndView.addObject("recipe", new RecipeDTO());
-        return modelAndView;
+    public String showRecipeCreateForm(Model model) {
+        model.addAttribute("recipe", new RecipeDTO());
+        return "recipe-create-form";
     }
 
     @PostMapping("/recipe")
@@ -38,19 +36,17 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/keyword")
-    public ModelAndView showRecipeKeywordForm(@RequestParam String ingredients) {
+    public String showRecipeKeywordForm(@RequestParam String ingredients, Model model) {
         List<RecipeDTO> recipeDTOList = recipeService.ingredientsRecipe(ingredients);
-        ModelAndView modelAndView = new ModelAndView("recipe-keyword-result");
-        modelAndView.addObject("searchedKeywordRecipes", recipeDTOList);
-        return modelAndView;
+        model.addAttribute("searchedKeywordRecipes", recipeDTOList);
+        return "recipe-keyword-result";
     }
 
     @PostMapping("/recipe/category")
-    public ModelAndView showRecipeCategoryForm(@RequestParam String category) {
+    public String showRecipeCategoryForm(@RequestParam String category, Model model) {
         List<RecipeDTO> recipeDTOList = recipeService.categoryRecipe(category);
-        ModelAndView modelAndView = new ModelAndView("recipe-category-result");
-        modelAndView.addObject("searchedCategoryRecipes", recipeDTOList);
-        return modelAndView;
+        model.addAttribute("searchedCategoryRecipes", recipeDTOList);
+        return "recipe-category-result";
     }
 
     @GetMapping("/recipe/boards")
