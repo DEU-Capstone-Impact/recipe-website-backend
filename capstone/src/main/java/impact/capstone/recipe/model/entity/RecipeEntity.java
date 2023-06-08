@@ -26,5 +26,6 @@ public class RecipeEntity {
     @Enumerated(EnumType.STRING)
     @Column(name="cate")
     private CategoryEnum category;
-    private String recipe_photo;
+    @Column(name="recipe_photo")
+    private String recipeURL;
 }

@@ -44,7 +44,7 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/category")
-    public String showRecipeCategoryForm(@RequestParam String category, Model model) {
+    public String showRecipeCategoryForm(@RequestParam CategoryEnum category, Model model) {
         List<RecipeDTO> recipeDTOList = recipeService.categoryRecipe(category);
         model.addAttribute("searchedCategoryRecipes", recipeDTOList);
         return "recipe-category-result";

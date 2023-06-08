@@ -20,5 +20,5 @@ public class RecipeDTO {
     private WeatherEnum weather;
     private CategoryEnum category;
 
-    private String recipe_photo;
+    private String recipeURL;
 }

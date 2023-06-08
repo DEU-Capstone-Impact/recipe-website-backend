@@ -38,7 +38,7 @@ public class RecipeService {
                 .ingredient(recipeDTO.getIngredient())
                 .weather(recipeDTO.getWeather())
                 .category(recipeDTO.getCategory())
-                .recipe_photo(filePath)
+                .recipeURL(filePath)
                 .build();
 
         return recipeSortByViewRepository.save(recipe);
