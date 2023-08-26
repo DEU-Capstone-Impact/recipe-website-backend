@@ -33,6 +33,9 @@ dependencies {
 	implementation ("com.fasterxml.jackson.module:jackson-module-kotlin")
 	//kotlin
 	implementation ("org.jetbrains.kotlin:kotlin-reflect")
+	// JWT
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	implementation("javax.xml.bind:jaxb-api:2.3.1")
 }
 
 tasks.withType<KotlinCompile> {
