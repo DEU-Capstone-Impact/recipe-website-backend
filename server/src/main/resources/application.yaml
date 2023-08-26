@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: username
+    password: password
+
+application:
+  base-url: http://localhost:8080
+  jwt:
+    secret: wadoyouknowjwtitiscommonsolutionforauthenticationandauthorization
+    expiration: 86400000
